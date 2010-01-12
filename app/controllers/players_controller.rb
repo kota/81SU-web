@@ -1,7 +1,7 @@
 class PlayersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  before_filter :login_required, :except => [:new,:create]
+  before_filter :login_required, :only => [:show,:edit]
 
   def index
   end
