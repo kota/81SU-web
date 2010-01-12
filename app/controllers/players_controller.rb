@@ -1,8 +1,27 @@
 class PlayersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  
+  before_filter :login_required, :except => [:new,:create]
 
+  def index
+  end
+  
+  def show
+    if(current_player == Player.find_by_id(params[:id]))
+      @player = current_player
+    else 
+      redirect_to('/')
+    end
+  end
+
+  def edit
+    if(current_player == Player.find_by_id(params[:id]))
+      @player = current_player
+    else 
+      redirect_to('/')
+    end
+  end
+  
   # render new.rhtml
   def new
     @player = Player.new

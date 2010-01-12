@@ -10,6 +10,8 @@ class CreatePlayers < ActiveRecord::Migration
       t.column :updated_at,                :datetime
       t.column :remember_token,            :string, :limit => 40
       t.column :remember_token_expires_at, :datetime
+      t.column :country,                      :string, :limit => 100, :default => '', :null => true
+      t.column :rating,                    :integer, :default => 1000, :null => true
 
     end
     add_index :players, :login, :unique => true
