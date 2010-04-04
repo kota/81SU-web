@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100103143546) do
+ActiveRecord::Schema.define(:version => 20100112123721) do
 
   create_table "players", :force => true do |t|
     t.string   "login",                     :limit => 40
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(:version => 20100103143546) do
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
+    t.string   "country",                   :limit => 100, :default => ""
+    t.integer  "rating",                                   :default => 1000
   end
 
   add_index "players", ["login"], :name => "index_players_on_login", :unique => true

@@ -1,8 +1,8 @@
 development:
   adapter: mysql
   host: localhost
-  username: user_name
-  database: dev_db_name
+  username: root
+  database: 81squareuniverse_dev
   encoding: utf8
 
 test:
@@ -18,4 +18,3 @@ production:
   username: user_name
   database: db_name
   encoding: utf8
-

@@ -1,0 +1,12 @@
+body {
+  text-align: center;
+  background-color :#9EB7F1;
+}
+
+.container {
+  margin:1em auto;
+  position:relative;
+  text-align:left;
+  width:400px;
+  background-color:#FFFFFF;
+}

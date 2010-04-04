@@ -50,7 +50,7 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
-      authorized? || access_denied
+       authorized? || access_denied unless request.format == :xml
     end
 
     # Redirect as appropriate when an access request fails.
