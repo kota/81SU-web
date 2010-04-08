@@ -1,20 +1,20 @@
 development:
   adapter: mysql
   host: localhost
-  username: root
-  database: 81squareuniverse_dev
+  username: user
+  database: database
   encoding: utf8
 
 test:
   adapter: mysql
   host: localhost
-  username: user_name
-  database: test_db_name
+  username: user
+  database: database
   encoding: utf8
 
 production:
   adapter: mysql
   host: localhost
-  username: user_name
-  database: db_name
+  username: user
+  database: database
   encoding: utf8
