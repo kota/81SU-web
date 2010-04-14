@@ -1,0 +1,24 @@
+<h1>Listing kifus</h1>
+
+<table>
+  <tr>
+    <th>Blackid</th>
+    <th>Whiteid</th>
+    <th>Contents</th>
+  </tr>
+
+<% @kifus.each do |kifu| %>
+  <tr>
+    <td><%=h kifu.blackid %></td>
+    <td><%=h kifu.whiteid %></td>
+    <td><%=h kifu.contents %></td>
+    <td><%= link_to 'Show', kifu %></td>
+    <td><%= link_to 'Edit', edit_kifu_path(kifu) %></td>
+    <td><%= link_to 'Destroy', kifu, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New kifu', new_kifu_path %>

@@ -1,5 +1,4 @@
 ActionController::Routing::Routes.draw do |map|
-
   map.root :controller => 'players', :action => 'index'
   map.resource :session
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
@@ -9,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :api do |api|
     api.resources :players, :collection => {:with_login => :get}
+    api.resources :kifus
   end
   map.resources :players
 

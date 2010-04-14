@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  blackid: 
+  whiteid: 
+  contents: MyText
+
+two:
+  blackid: 
+  whiteid: 
+  contents: MyText

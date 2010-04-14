@@ -1,0 +1,24 @@
+<h1>Editing kifu</h1>
+
+<% form_for(@kifu) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :blackid %><br />
+    <%= f.text_field :blackid %>
+  </p>
+  <p>
+    <%= f.label :whiteid %><br />
+    <%= f.text_field :whiteid %>
+  </p>
+  <p>
+    <%= f.label :contents %><br />
+    <%= f.text_area :contents %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @kifu %> |
+<%= link_to 'Back', kifus_path %>
