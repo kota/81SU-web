@@ -51,6 +51,7 @@ class PlayersController < ApplicationController
   def create
     logout_keeping_session!
     @player = Player.new(params[:player])
+    @player.country = Country.find_by_id(params[:player][:country_id])
     success = @player && @player.save
     if success && @player.errors.empty?
             # Protects against session fixation attacks, causes request forgery

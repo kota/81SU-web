@@ -61,6 +61,7 @@ class Api::PlayersController < ApplicationController
     @player = Player.find(params[:id])
 
     respond_to do |format|
+      params[:player].delete('country')
       if @player.update_attributes(params[:player])
         flash[:notice] = 'Api::Player was successfully updated.'
         format.html { redirect_to(@player) }
@@ -89,7 +90,7 @@ class Api::PlayersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @player }
+      format.xml  { render :xml => @player.to_xml(:include => :country) }
     end
 
   end

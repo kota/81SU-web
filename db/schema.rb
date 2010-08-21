@@ -9,7 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100412070142) do
+ActiveRecord::Schema.define(:version => 20100821165156) do
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.integer  "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "kifus", :force => true do |t|
     t.integer  "blackid"
@@ -29,8 +36,8 @@ ActiveRecord::Schema.define(:version => 20100412070142) do
     t.datetime "updated_at"
     t.string   "remember_token",            :limit => 40
     t.datetime "remember_token_expires_at"
-    t.string   "country",                   :limit => 100, :default => ""
     t.integer  "rate",                                     :default => 1000
+    t.integer  "country_id"
   end
 
   add_index "players", ["login"], :name => "index_players_on_login", :unique => true

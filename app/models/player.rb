@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class Player < ActiveRecord::Base
+  belongs_to :country
+  
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
