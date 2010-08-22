@@ -1,0 +1,26 @@
+<h1>Editing player</h1>
+<% @player.password = @player.password_confirmation = nil %>
+
+<%= error_messages_for :player %>
+<% form_for(@player) do |f| %>
+
+<p><%= label_tag 'login' %><br/>
+<%= h(@player.login) %></p>
+
+<p><%= label_tag 'name' %><br/>
+<%= f.text_field :name %></p>
+
+<p><%= label_tag 'country' %><br/>
+<%= f.collection_select :country_id, Country.find(:all), :id, :name %>
+
+<p><%= label_tag 'email' %><br/>
+<%= h(@player.email) %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><%= submit_tag 'Update' %></p>
+<% end -%>

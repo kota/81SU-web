@@ -19,7 +19,6 @@ class PlayersController < ApplicationController
     if(current_player == Player.find_by_id(params[:id]))
       @player = current_player
     else 
-      puts "redirecting to /"
       redirect_to('/')
     end
   end
@@ -34,12 +33,18 @@ class PlayersController < ApplicationController
 
   def update
     @player = Player.find(params[:id])
-    if @player
-      @player.update_attributes(params[:player])
-    end
+
     respond_to do |format|
-      format.html {render :action => :index}
-      format.xml {render :xml => @player}
+      if @player.update_attributes(params[:player])
+        if(params[:player][:country_id])
+          @player.country = Country.find_by_id(params[:player][:country_id])
+          @player.save
+        end
+        flash[:notice] = 'Player was successfully updated.'
+        format.html { redirect_to(@player) }
+      else
+        format.html { render :action => "edit" }
+      end
     end
   end
 
