@@ -82,4 +82,22 @@ class Api::KifusController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def search
+    @kifus = Array.new
+    date1 = Date.strptime(params[:begin_date])
+    date2 = Date.strptime(params[:end_date])
+    Kifu.all.each { |k|
+      if (Player.find(k.blackid).login == params[:player_name] || Player.find(k.whiteid).login == params[:player_name]) then
+        date3 = Date.strptime(k.updated_at.strftime("%Y-%m-%d"))
+        if (date3 >= date1 && date3 <= date2) then
+          @kifus.push(k)
+        end
+      end
+      break if @kifus.size > 100
+    }
+    respond_to do |format|
+      format.xml
+    end
+  end
 end
