@@ -95,6 +95,19 @@ class Api::PlayersController < ApplicationController
 
   end
   
+  def search
+    @api_players = Array.new
+    Player.all.each { |p|
+      if (p.login.include?(params[:name])) then
+        @api_players.push(p)
+      end
+      break if @api_players.size > 100
+    }
+    respond_to do |format|
+      format.xml
+    end
+  end
+  
   def ranking
     case params[:item]
     when "rate"

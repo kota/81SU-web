@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signup '/signup', :controller => 'players', :action => 'new'
 
   map.namespace :api do |api|
+    api.connect '/players/search/:name', :controller => 'players', :action => 'search'
     api.connect '/players/ranking/:item', :controller => 'players', :action => 'ranking'
     api.connect '/kifus/search/:player_name/:begin_date/:end_date', :controller => 'kifus', :action => 'search'
     api.resources :players, :collection => {:with_login => :get}
