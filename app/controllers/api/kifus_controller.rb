@@ -107,8 +107,10 @@ class Api::KifusController < ApplicationController
       end
       for i in istart..(@kifus_all.size - 1)
         if (Date.strptime(@kifus_all[i].updated_at.strftime("%Y-%m-%d")) <= date2) then
-          @kifus.push(@kifus_all[i])
-          break if @kifus.size > 100
+          if (Player.find(@kifus_all[i].blackid).login == params[:player_name] || Player.find(@kifus_all[i].whiteid).login == params[:player_name]) then
+            @kifus.push(@kifus_all[i])
+            break if @kifus.size > 100
+          end
         else
           break
         end
