@@ -85,19 +85,39 @@ class Api::KifusController < ApplicationController
   
   def search
     @kifus = Array.new
+    @kifus_all = Kifu.all
     date1 = Date.strptime(params[:begin_date])
     date2 = Date.strptime(params[:end_date])
-    Kifu.all.each { |k|
-      if (Player.find(k.blackid).login == params[:player_name] || Player.find(k.whiteid).login == params[:player_name]) then
-        date3 = Date.strptime(k.updated_at.strftime("%Y-%m-%d"))
-        if (date3 >= date1 && date3 <= date2) then
-          @kifus.push(k)
+
+    unless (Date.strptime(@kifus_all[@kifus_all.size - 1].updated_at.strftime("%Y-%m-%d")) < date1) then
+      if (Date.strptime(@kifus_all[0].updated_at.strftime("%Y-%m-%d")) >= date1) then
+        istart = 0
+      else
+        imin = 0
+        imax = @kifus_all.size - 1
+        while (imax - imin > 1)
+          imid = (imax + imin)/2
+          if (Date.strptime(@kifus_all[imid].updated_at.strftime("%Y-%m-%d")) < date1) then
+            imin = imid
+          else
+            imax = imid
+          end
+        end
+        istart = imax
+      end
+      for i in istart..(@kifus_all.size - 1)
+        if (Date.strptime(@kifus_all[i].updated_at.strftime("%Y-%m-%d")) <= date2) then
+          @kifus.push(@kifus_all[i])
+          break if @kifus.size > 100
+        else
+          break
         end
       end
-      break if @kifus.size > 100
-    }
+    end
+
     respond_to do |format|
       format.xml
     end
   end
+  
 end
