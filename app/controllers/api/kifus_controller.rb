@@ -85,37 +85,10 @@ class Api::KifusController < ApplicationController
   
   def search
     @kifus = Array.new
-    @kifus_all = Kifu.all
-    date1 = Date.strptime(params[:begin_date])
-    date2 = Date.strptime(params[:end_date])
-
-    unless (Date.strptime(@kifus_all[@kifus_all.size - 1].updated_at.strftime("%Y-%m-%d")) < date1) then
-      if (Date.strptime(@kifus_all[0].updated_at.strftime("%Y-%m-%d")) >= date1) then
-        istart = 0
-      else
-        imin = 0
-        imax = @kifus_all.size - 1
-        while (imax - imin > 1)
-          imid = (imax + imin)/2
-          if (Date.strptime(@kifus_all[imid].updated_at.strftime("%Y-%m-%d")) < date1) then
-            imin = imid
-          else
-            imax = imid
-          end
-        end
-        istart = imax
-      end
-      for i in istart..(@kifus_all.size - 1)
-        if (Date.strptime(@kifus_all[i].updated_at.strftime("%Y-%m-%d")) <= date2) then
-          if (Player.find(@kifus_all[i].blackid).login == params[:player_name] || Player.find(@kifus_all[i].whiteid).login == params[:player_name]) then
-            @kifus.push(@kifus_all[i])
-            break if @kifus.size > 100
-          end
-        else
-          break
-        end
-      end
-    end
+    conditions = 'kifus.updated_at >= ? and kifus.updated_at <= ? and ((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) or (players.login = ? and players.id = kifus.blackid))'
+    @kifus = Kifu.find(:all,
+                       :conditions => [conditions,params[:begin_date],params[:end_date],params[:player_name],params[:player_name]],
+                       :include => [:black,:white],:limit => 100)
 
     respond_to do |format|
       format.xml
