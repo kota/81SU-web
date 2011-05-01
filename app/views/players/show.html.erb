@@ -2,9 +2,9 @@
 <div style="color:green"><%= flash[:notice] %></div>
 <div class="container">
 <table>
-  <tr><th>Login</th><td><%= @player.login %><td></tr>
-  <tr><th>Country</th><td><%= @player.country ? @player.country.name : '' %></td></tr>
-  <tr><th>Rating</th><td><%= @player.rate %></td></tr>
+  <tr><th>Login(ハンドルネーム)</th><td><%= @player.login %><td></tr>
+  <tr><th>Country(国)</th><td><%= @player.country ? @player.country.name : '' %></td></tr>
+  <tr><th>Rating(レーティング)</th><td><%= @player.rate %></td></tr>
 </table>
 </div>
 <%= link_to 'Edit',edit_player_path(@player) %><br/><br/>

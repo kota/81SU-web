@@ -4,9 +4,11 @@
 <div style="color:red"><%= flash[:error] %></div>
 <% form_tag session_path do -%>
 <p><%= label_tag 'login' %><br />
+ハンドルネーム<br />
 <%= text_field_tag 'login', @login %></p>
 
 <p><%= label_tag 'password' %><br/>
+パスワード<br />
 <%= password_field_tag 'password', nil %></p>
 
 <!-- Uncomment this if you want this functionality
