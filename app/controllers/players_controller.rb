@@ -3,7 +3,8 @@ class PlayersController < ApplicationController
   include AuthenticatedSystem
   layout 'base'
   before_filter :login_required, :only => [:show,:edit]
-  before_filter :localize_if_possible, :only => [:show,:edit,:create]
+  ##Need to specify locale without using I18n since I18n set locale globally. comment out for now.
+  #before_filter :localize_if_possible, :only => [:show,:edit,:create]
 
   def index
     if params[:login].present?
