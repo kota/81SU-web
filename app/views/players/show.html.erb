@@ -11,7 +11,7 @@
 <td><b><%= label_tag 'rating' %></b><br><font size="-1">(レーティング)</font><td><%= @player.rate %>
 </table>
 </div>
-<div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html' %></div>
+<div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html',:target => '_top' %></div>
 <div style="font-size:15px; margin-top:5px;">(対局場へ)</div>
 <br>
 <div style="font-size:24px"><%= link_to 'Edit',edit_player_path(@player) %></div>
