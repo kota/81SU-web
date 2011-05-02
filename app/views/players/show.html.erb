@@ -1,11 +1,20 @@
 <h2>Hello, <%= @player.login %>. </h2><br/>
 <div style="color:green"><%= flash[:notice] %></div>
+
 <div class="container">
-<table>
-  <tr><th>Login(ハンドルネーム)</th><td><%= @player.login %><td></tr>
-  <tr><th>Country(国)</th><td><%= @player.country ? @player.country.name : '' %></td></tr>
-  <tr><th>Rating(レーティング)</th><td><%= @player.rate %></td></tr>
+<table width=100% border="1" cellspacing="0" cellpadding="5" align="center">
+<tr>
+<td><b>81Dojo Nickname</b><br><font size="-1">(ハンドルネーム)</font><td><%= @player.login %>
+<tr>
+<td><b><%= label_tag 'country' %></b><br><font size="-1">(国名)</font><td><%= @player.country ? @player.country.name : '' %>
+<tr>
+<td><b><%= label_tag 'rating' %></b><br><font size="-1">(レーティング)</font><td><%= @player.rate %>
 </table>
 </div>
-<%= link_to 'Edit',edit_player_path(@player) %><br/><br/>
+<div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html' %></div>
+<div style="font-size:15px; margin-top:5px;">(対局場へ)</div>
+<br>
+<div style="font-size:24px"><%= link_to 'Edit',edit_player_path(@player) %></div>
+<div style="font-size:15px; margin-top:5px;">(登録情報の変更)</div>
+<br>
 <%= link_to 'Log Out','/' %>
