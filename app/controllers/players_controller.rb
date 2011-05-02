@@ -3,6 +3,7 @@ class PlayersController < ApplicationController
   include AuthenticatedSystem
   layout 'base'
   before_filter :login_required, :only => [:show,:edit]
+  before_filter :localize_if_possible, :only => [:show,:edit,:create]
 
   def index
     if params[:login].present?
@@ -70,5 +71,12 @@ class PlayersController < ApplicationController
       flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
       render :action => 'new'
     end
+  end
+
+  private
+  def localize_if_possible
+    countries = {"109" => :ja}
+    country_id = params[:player] ? params[:player][:country_id] : current_player ? current_player.country : nil
+    I18n.locale = countries[country_id] if country_id && countries.include?(country_id) 
   end
 end
