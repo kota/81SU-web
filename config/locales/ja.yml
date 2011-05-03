@@ -186,3 +186,13 @@ ja:
 
       full_messages:
         format: "%{attribute}%{message}"
+    models:
+      player: "プレイヤー"
+    attributes:
+      player:
+        login: "ハンドルネーム"
+        name: "名前"
+        country: "国名"
+        rate: "レーティング"
+        password: "パスワード"
+        password_confirmation: "パスワード(確認)"

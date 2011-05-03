@@ -3,3 +3,8 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      player:
+        login: "Nickname"
+        rate: "Rating"

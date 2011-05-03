@@ -3,8 +3,7 @@ class PlayersController < ApplicationController
   include AuthenticatedSystem
   layout 'base'
   before_filter :login_required, :only => [:show,:edit]
-  ##Need to specify locale without using I18n since I18n set locale globally. comment out for now.
-  #before_filter :localize_if_possible, :only => [:show,:edit,:create]
+  before_filter :localize_if_possible, :only => [:show,:edit,:create]
 
   def index
     if params[:login].present?
@@ -76,8 +75,8 @@ class PlayersController < ApplicationController
 
   private
   def localize_if_possible
-    countries = {"109" => :ja}
-    country_id = params[:player] ? params[:player][:country_id] : current_player ? current_player.country : nil
-    I18n.locale = countries[country_id] if country_id && countries.include?(country_id) 
+    country_to_locale = {109 => :ja}
+    country_id = params[:player] ? params[:player][:country_id].to_i : current_player && current_player.country ? current_player.country.id : nil
+    I18n.locale = country_id && country_to_locale.include?(country_id) ? country_to_locale[country_id] : :en
   end
 end

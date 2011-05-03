@@ -4,11 +4,11 @@
 <div class="container">
 <table width=100% border="1" cellspacing="0" cellpadding="5" align="center">
 <tr>
-<td><b>81Dojo Nickname</b><br><font size="-1">(ハンドルネーム)</font><td><%= @player.login %>
+<td><b>81Dojo <%= Player.human_attribute_name("login") %></b><td><%= @player.login %>
 <tr>
-<td><b><%= label_tag 'country' %></b><br><font size="-1">(国名)</font><td><%= @player.country ? @player.country.name : '' %>
+<td><b><%= Player.human_attribute_name("country") %></b><td><%= @player.country ? @player.country.name : '' %>
 <tr>
-<td><b><%= label_tag 'rating' %></b><br><font size="-1">(レーティング)</font><td><%= @player.rate %>
+<td><b><%= Player.human_attribute_name("rate") %></b><td><%= @player.rate %>
 </table>
 </div>
 <div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html',:target => '_top' %></div>
