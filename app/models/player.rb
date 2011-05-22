@@ -2,6 +2,9 @@ require 'digest/sha1'
 
 class Player < ActiveRecord::Base
   belongs_to :country
+  has_many :players_titles
+  has_many :titles, :through => :players_titles
+  has_many :rate_chage_histories
   
   include Authentication
   include Authentication::ByPassword
@@ -48,6 +51,10 @@ class Player < ActiveRecord::Base
 
   def email=(value)
     write_attribute :email, (value ? value.downcase : nil)
+  end
+
+  def self.ranked
+    find(:all,:conditions => ['show_ranking = ?',true])
   end
 
   protected

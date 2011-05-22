@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110130084208) do
+ActiveRecord::Schema.define(:version => 20110522074341) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -42,9 +42,30 @@ ActiveRecord::Schema.define(:version => 20110130084208) do
     t.integer  "losses",                                   :default => 0
     t.integer  "streak",                                   :default => 0
     t.integer  "streak_best",                              :default => 0
+    t.boolean  "show_ranking"
+    t.integer  "max_rate"
+    t.integer  "wins34"
+    t.integer  "losses34"
+    t.string   "latest_ip_address"
+    t.string   "avatar_image_url"
+    t.text     "pr"
   end
 
   add_index "players", ["login"], :name => "index_players_on_login", :unique => true
+
+  create_table "players_titles", :force => true do |t|
+    t.integer  "player_id"
+    t.integer  "title_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rate_change_histories", :force => true do |t|
+    t.integer  "player_id"
+    t.integer  "change"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "servers", :force => true do |t|
     t.string   "name"
@@ -54,6 +75,13 @@ ActiveRecord::Schema.define(:version => 20110130084208) do
     t.datetime "updated_at"
     t.datetime "maintenance_at"
     t.datetime "created_at"
+  end
+
+  create_table "titles", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

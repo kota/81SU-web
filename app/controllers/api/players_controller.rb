@@ -111,22 +111,22 @@ class Api::PlayersController < ApplicationController
   def ranking
     case params[:item]
     when "rate"
-      @api_players = Player.all.sort_by { |v| - ( v.wins + v.losses ) }
+      @api_players = Player.ranked.sort_by { |v| - ( v.wins + v.losses ) }
       @api_players = @api_players.sort_by { |v| - v.rate }
     when "wins"
-      @api_players = Player.all.sort_by { |v| - v.rate }
+      @api_players = Player.ranked.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| v.losses }
       @api_players = @api_players.sort_by { |v| - v.wins }
     when "total"
-      @api_players = Player.all.sort_by { |v| - v.rate }
+      @api_players = Player.ranked.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| v.losses }
       @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
     when "percentage"
-      @api_players = Player.all.sort_by { |v| - v.rate }
+      @api_players = Player.ranked.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
       @api_players = @api_players.sort_by { |v| - ( v.wins.to_f / [1, v.wins + v.losses].max ) }
     when "streak"
-      @api_players = Player.all.sort_by { |v| - v.rate }
+      @api_players = Player.ranked.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| - v.streak_best }
     else
       @api_players = Array.new
