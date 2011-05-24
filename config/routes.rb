@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
     api.resources :players, :collection => {:with_login => :get}
     api.resources :kifus
     api.resources :servers, :collection => {:with_name => :get}
+    api.resources :rate_change_histories
   end
   map.resources :players
 
