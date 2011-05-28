@@ -108,6 +108,14 @@ class Api::PlayersController < ApplicationController
     end
   end
   
+  def detail
+    @player = Player.find(:all, :conditions => ['login = ?',params[:name]])
+
+    respond_to do |format|
+      format.xml  { render :xml => @player }
+    end
+  end
+  
   def ranking
     case params[:item]
     when "rate"
