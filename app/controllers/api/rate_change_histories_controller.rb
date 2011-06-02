@@ -83,4 +83,15 @@ class Api::RateChangeHistoriesController < ApplicationController
     end
   end
 
+  def search
+    @rate_change_histories = Array.new
+    @rate_change_histories = RateChangeHistory.find(:all, :order => "rate_change_histories.id DESC",
+                       :conditions => ["players.login = ?",params[:name]],
+                       :include => :player, :limit => 100)
+
+    respond_to do |format|
+      format.xml
+    end
+  end
+
 end
