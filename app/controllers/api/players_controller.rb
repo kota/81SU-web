@@ -1,4 +1,7 @@
 class Api::PlayersController < ApplicationController
+  include AuthenticatedSystem
+  before_filter :auth_by_token, :only => [:update,:destroy]
+
   # GET /api_players
   # GET /api_players.xml
   def index
@@ -136,4 +139,24 @@ class Api::PlayersController < ApplicationController
       format.xml
     end
   end
+
+  def authenticate
+    logout_keeping_session!
+    if @player = Player.authenticate(params[:login], params[:password])
+      @player.set_auth_token!
+      render :xml => @player, :layout => false
+    else
+      render :nothing => true, :status => :unprocessable_entity
+    end
+  end
+
+  private
+  def auth_by_token
+    player = Player.find(params[:id])
+    unless player.auth_by_token(params[:player][:auth_token])
+      render :nothing => true, :status => :forbidden
+      return
+    end
+  end
+
 end

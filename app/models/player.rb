@@ -57,8 +57,16 @@ class Player < ActiveRecord::Base
     find(:all,:conditions => ['show_ranking = ?',true])
   end
 
-  protected
-    
+  def set_auth_token!
+    self.auth_token = SecureRandom.hex(16)
+    save(false)
+    self.auth_token
+  end
 
+  def auth_by_token(token)
+    self.auth_token == token
+  end
+  
+  protected
 
 end

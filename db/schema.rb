@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110522074341) do
+ActiveRecord::Schema.define(:version => 20110604081808) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20110522074341) do
     t.string   "latest_ip_address"
     t.string   "avatar_image_url"
     t.text     "pr"
+    t.string   "auth_token"
   end
 
   add_index "players", ["login"], :name => "index_players_on_login", :unique => true

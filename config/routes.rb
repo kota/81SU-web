@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     api.connect '/players/search/:name', :controller => 'players', :action => 'search'
     api.connect '/players/ranking/:item', :controller => 'players', :action => 'ranking'
     api.connect '/kifus/search/:player_name/:begin_date/:end_date', :controller => 'kifus', :action => 'search'
-    api.resources :players, :collection => {:with_login => :get}
+    api.resources :players, :collection => {:with_login => :get,:authenticate => :get}
     api.resources :kifus
     api.resources :servers, :collection => {:with_name => :get}
   end
