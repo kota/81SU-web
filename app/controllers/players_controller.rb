@@ -39,8 +39,11 @@ class PlayersController < ApplicationController
       if @player.update_attributes(params[:player])
         if(params[:player][:country_id])
           @player.country = Country.find_by_id(params[:player][:country_id])
-          @player.save
         end
+        if(params[:player][:pr])
+          @player.pr = params[:player][:pr]
+        end
+        @player.save
         flash[:notice] = 'Player was successfully updated.'
         format.html { redirect_to(@player) }
       else

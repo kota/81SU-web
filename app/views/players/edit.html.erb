@@ -13,6 +13,9 @@
 <p><b><%= Player.human_attribute_name("country") %></b></p>
 <%= f.collection_select :country_id, Country.find(:all), :id, :name %>
 
+<p><b>Self Introduction</b></p>
+<%= f.text_area :pr, :cols => 32, :rows => 8 %>
+
 <p><b><%= Player.human_attribute_name("email") %></b></p>
 <%= h(@player.email) %></p>
 
