@@ -152,7 +152,7 @@ class Api::PlayersController < ApplicationController
     logout_keeping_session!
     if @player = Player.authenticate(params[:login], params[:password])
       @player.set_auth_token!
-      render :xml => @player, :layout => false
+      render :xml => @player.to_xml(:include => :country), :layout => false
     else
       render :nothing => true, :status => :unprocessable_entity
     end
