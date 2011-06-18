@@ -148,6 +148,29 @@ class Api::PlayersController < ApplicationController
     end
   end
 
+  def ranking34
+    case params[:item]
+    when "exp"
+      @api_players = Player.ranked.sort_by { |v| - v.wins34 }
+      @api_players = @api_players.sort_by { |v| - v.exp34 }
+    when "wins"
+      @api_players = Player.ranked.sort_by { |v| v.losses34 }
+      @api_players = @api_players.sort_by { |v| - v.wins34 }
+    when "total"
+      @api_players = Player.ranked.sort_by { |v| - v.exp34 }
+      @api_players = @api_players.sort_by { |v| - ( v.wins34 + v.losses34 + v.draws34 ) }
+    when "percentage"
+      @api_players = Player.ranked.sort_by { |v| - v.exp34 }
+      @api_players = @api_players.sort_by { |v| - ( v.wins34.to_f / [1, v.wins34 + v.losses34 + v.draws34].max ) }
+    else
+      @api_players = Array.new
+    end
+
+    respond_to do |format|
+      format.xml
+    end
+  end
+
   def authenticate
     logout_keeping_session!
     if @player = Player.authenticate(params[:login], params[:password])
