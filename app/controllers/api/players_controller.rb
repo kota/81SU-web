@@ -121,24 +121,27 @@ class Api::PlayersController < ApplicationController
   end
   
   def ranking
+    conditions = 'players.updated_at >= ? and (players.wins + players.losses) >= ? and players.show_ranking = ?'
+    @api_players = Player.find(:all,
+                       :conditions => [conditions, DateTime.now - 90 , 30, true])
     case params[:item]
     when "rate"
-      @api_players = Player.ranked.sort_by { |v| - ( v.wins + v.losses ) }
+      @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
       @api_players = @api_players.sort_by { |v| - v.rate }
     when "wins"
-      @api_players = Player.ranked.sort_by { |v| - v.rate }
+      @api_players = @api_players.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| v.losses }
       @api_players = @api_players.sort_by { |v| - v.wins }
     when "total"
-      @api_players = Player.ranked.sort_by { |v| - v.rate }
+      @api_players = @api_players.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| v.losses }
       @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
     when "percentage"
-      @api_players = Player.ranked.sort_by { |v| - v.rate }
+      @api_players = @api_players.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
       @api_players = @api_players.sort_by { |v| - ( v.wins.to_f / [1, v.wins + v.losses].max ) }
     when "streak"
-      @api_players = Player.ranked.sort_by { |v| - v.rate }
+      @api_players = @api_players.sort_by { |v| - v.rate }
       @api_players = @api_players.sort_by { |v| - v.streak_best }
     else
       @api_players = Array.new
@@ -150,18 +153,21 @@ class Api::PlayersController < ApplicationController
   end
 
   def ranking34
+    conditions = 'players.updated_at >= ? and players.exp34 >= ? and players.show_ranking = ?'
+    @api_players = Player.find(:all,
+                       :conditions => [conditions, DateTime.now - 90 , 20, true])
     case params[:item]
     when "exp"
-      @api_players = Player.ranked.sort_by { |v| - v.wins34 }
+      @api_players = @api_players.sort_by { |v| - v.wins34 }
       @api_players = @api_players.sort_by { |v| - v.exp34 }
     when "wins"
-      @api_players = Player.ranked.sort_by { |v| v.losses34 }
+      @api_players = @api_players.sort_by { |v| v.losses34 }
       @api_players = @api_players.sort_by { |v| - v.wins34 }
     when "total"
-      @api_players = Player.ranked.sort_by { |v| - v.exp34 }
+      @api_players = @api_players.sort_by { |v| - v.exp34 }
       @api_players = @api_players.sort_by { |v| - ( v.wins34 + v.losses34 + v.draws34 ) }
     when "percentage"
-      @api_players = Player.ranked.sort_by { |v| - v.exp34 }
+      @api_players = @api_players.sort_by { |v| - v.exp34 }
       @api_players = @api_players.sort_by { |v| - ( v.wins34.to_f / [1, v.wins34 + v.losses34 + v.draws34].max ) }
     else
       @api_players = Array.new

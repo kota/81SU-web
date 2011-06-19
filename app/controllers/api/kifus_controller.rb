@@ -88,7 +88,7 @@ class Api::KifusController < ApplicationController
     conditions = 'kifus.updated_at >= ? and kifus.updated_at <= ? and ((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) or (players.login = ? and players.id = kifus.blackid))'
     @kifus = Kifu.find(:all,
                        :conditions => [conditions,params[:begin_date],params[:end_date],params[:player_name],params[:player_name]],
-                       :include => [:black,:white],:limit => 100)
+                       :include => [:black,:white],:limit => 101)
 
     respond_to do |format|
       format.xml

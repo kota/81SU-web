@@ -1,8 +1,6 @@
 xml.ranking(:item => params[:item]) do
-  nowDate = Date.strptime(DateTime.now.utc.strftime("%Y-%m-%d"))
   i = 0
   for p in @api_players
-    next if (p.wins34 + p.losses34 + p.draws34 < 5)
     xml.player do
       xml.login(p.login)
       xml.country_id(p.country_id)
