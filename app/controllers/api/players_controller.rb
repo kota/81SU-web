@@ -1,6 +1,6 @@
 class Api::PlayersController < ApplicationController
   include AuthenticatedSystem
-  before_filter :auth_by_token, :only => [:update,:destroy]
+  before_filter :activeresource_auth, :only => [:update,:destroy]
 
   # GET /api_players
   # GET /api_players.xml
@@ -65,6 +65,7 @@ class Api::PlayersController < ApplicationController
 
     respond_to do |format|
       params[:player].delete('country')
+      params[:player].delete('auth_token')
       if @player.update_attributes(params[:player])
         flash[:notice] = 'Api::Player was successfully updated.'
         format.html { redirect_to(@player) }
@@ -174,7 +175,6 @@ class Api::PlayersController < ApplicationController
   def authenticate
     logout_keeping_session!
     if @player = Player.authenticate(params[:login], params[:password])
-      @player.set_auth_token!
       render :xml => @player.to_xml(:include => :country), :layout => false
     else
       render :nothing => true, :status => :unprocessable_entity
@@ -182,10 +182,10 @@ class Api::PlayersController < ApplicationController
   end
 
   private
-  def auth_by_token
+  def activeresource_auth
     player = Player.find(params[:id])
-    unless player.auth_by_token(params[:player][:auth_token])
-      render :nothing => true, :status => :forbidden
+    unless player.activeresource_auth(params[:player][:auth_token])
+      render :nothing => true, :status => :unauthorized
       return
     end
   end

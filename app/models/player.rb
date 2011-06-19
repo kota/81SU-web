@@ -63,8 +63,8 @@ class Player < ActiveRecord::Base
     self.auth_token
   end
 
-  def auth_by_token(token)
-    self.auth_token == token
+  def activeresource_auth(password)
+    authenticated?(password)
   end
   
   protected
