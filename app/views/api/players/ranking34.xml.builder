@@ -3,6 +3,7 @@ xml.ranking(:item => params[:item]) do
   for p in @api_players
     xml.player do
       xml.login(p.login)
+      xml.name(p.name)
       xml.country_id(p.country_id)
       xml.exp34(p.exp34)
       xml.wins34(p.wins34)

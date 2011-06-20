@@ -1,20 +1,21 @@
-<h2>Hello, <%= @player.login %>. </h2><br/>
+<h2>Hello, <%= @player.name %>. </h2><br/>
 <div style="color:green"><%= flash[:notice] %></div>
 
 <div class="container">
 <table width=100% border="1" cellspacing="0" cellpadding="5" align="center">
 <tr>
-<td><b>81Dojo <%= Player.human_attribute_name("login") %></b><td><%= @player.login %>
+<td><b>81Dojo <%= Player.human_attribute_name("login") %></b><td><%= @player.name %>
 <tr>
 <td><b><%= Player.human_attribute_name("country") %></b><td><%= @player.country ? @player.country.name : '' %>
 <tr>
 <td><b><%= Player.human_attribute_name("rate") %></b><td><%= @player.rate %>
 </table>
 </div>
-<div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html',:target => '_top' %></div>
-<div style="font-size:15px; margin-top:5px;">(対局場へ)</div>
-<br>
 <div style="font-size:24px"><%= link_to 'Edit',edit_player_path(@player) %></div>
 <div style="font-size:15px; margin-top:5px;">(登録情報の変更)</div>
 <br>
+<div style="font-size:24px"><%= link_to 'Go Play at 81Dojo', 'http://81dojo.com/client.html',:target => '_top' %></div>
+<div style="font-size:15px; margin-top:5px;">(対局場へ)</div>
+<br>
+
 <%= link_to 'Log Out','/' %>

@@ -59,6 +59,7 @@ class PlayersController < ApplicationController
  
   def create
     logout_keeping_session!
+    params[:player][:name] = params[:player][:login]
     @player = Player.new(params[:player])
     @player.country = Country.find_by_id(params[:player][:country_id])
     success = @player && @player.save

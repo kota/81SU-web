@@ -9,8 +9,6 @@
 <tr>
 <td><b>81Dojo Nickname</b><br><font size="-1">(ハンドルネーム)</font><td><%= f.text_field :login %>
 <tr>
-<td><b>Your Name</b><br><font size="-1">(お名前 ※表示されません)</font><td><%= f.text_field :name %>
-<tr>
 <td><b><%= label_tag 'country' %></b><br><font size="-1">(国名 ※日本はJapanを)</font><td><%= f.collection_select :country_id, Country.find(:all), :id, :name %>
 <tr>
 <td><b><%= label_tag 'email' %></b><br><font size="-1">(メールアドレス)</font><td><%= f.text_field :email %>

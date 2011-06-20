@@ -1,30 +1,27 @@
-<h1>Editing player</h1>
+<h1 style="font-family:Palatino Linotype;"><u>Edit Form</u></h1>
+(Fill in only the fields you need to change.)
 <% @player.password = @player.password_confirmation = nil %>
 
 <%= error_messages_for :player %>
 <% form_for(@player) do |f| %>
 
-<p><b><%= Player.human_attribute_name("login") %></b></p>
-<p><%= h(@player.login) %></p>
+<br>
+<p><b><font size="+1"><%= h(@player.name) %></font></b></p>
 
-<p><b><%= Player.human_attribute_name("name") %></b></p>
-<%= f.text_field :name %></p>
-
-<p><b><%= Player.human_attribute_name("country") %></b></p>
-<%= f.collection_select :country_id, Country.find(:all), :id, :name %>
-
-<p><b>Self Introduction</b></p>
-<%= f.text_area :pr, :cols => 32, :rows => 8 %>
-
-<p><b><%= Player.human_attribute_name("email") %></b></p>
-<%= h(@player.email) %></p>
-
-<p><b><%= Player.human_attribute_name("password") %></b></p>
-<%= f.password_field :password %></p>
-
-<p><b><%= Player.human_attribute_name("password_confirmation") %></b></p>
-<%= f.password_field :password_confirmation %></p>
+<table border="1" cellspacing="0" cellpadding="5" align="center">
+<tr>
+<td><b><%= Player.human_attribute_name("country") %></b><td><%= f.collection_select :country_id, Country.find(:all), :id, :name %>
+<tr>
+<td><b>Self Introduction</b><td><%= f.text_area :pr, :cols => 32, :rows => 8 %>
+<tr>
+<td><b><%= Player.human_attribute_name("email") %></b><td><%= h(@player.email) %></p>
+<tr>
+<td><b>Change Password</b><td>
+<b><%= Player.human_attribute_name("password") %></b><br>
+<%= f.password_field :password %><br>
+<b><%= Player.human_attribute_name("password_confirmation") %></b><br>
+<%= f.password_field :password_confirmation %>
+</table>
 
 <p><%= submit_tag 'Update' %></p>
-更新</p>
 <% end -%>
