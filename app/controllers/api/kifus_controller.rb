@@ -85,10 +85,17 @@ class Api::KifusController < ApplicationController
   
   def search
     @kifus = Array.new
-    conditions = 'kifus.updated_at >= ? and kifus.updated_at <= ? and ((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) or (players.login = ? and players.id = kifus.blackid))'
-    @kifus = Kifu.find(:all,
-                       :conditions => [conditions,params[:begin_date],params[:end_date],params[:player_name],params[:player_name]],
-                       :include => [:black,:white],:limit => 101)
+    if (params[:opponent_name] == "*")
+      conditions = 'kifus.updated_at >= ? and kifus.updated_at <= ? and ((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) or (players.login = ? and players.id = kifus.blackid))'
+      @kifus = Kifu.find(:all,
+                         :conditions => [conditions,params[:begin_date],params[:end_date],params[:player_name],params[:player_name]],
+                         :include => [:black,:white],:limit => 101)
+    else
+      conditions = 'kifus.updated_at >= ? and kifus.updated_at <= ? and (((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) and (players.login = ? and players.id = kifus.blackid)) or ((whites_kifus.login = ? and whites_kifus.id = kifus.whiteid) and (players.login = ? and players.id = kifus.blackid)))'
+      @kifus = Kifu.find(:all,
+                         :conditions => [conditions,params[:begin_date],params[:end_date],params[:player_name],params[:opponent_name],params[:opponent_name],params[:player_name]],
+                         :include => [:black,:white],:limit => 101)
+    end
 
     respond_to do |format|
       format.xml
