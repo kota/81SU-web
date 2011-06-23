@@ -12,6 +12,11 @@
 <tr>
 <td><b><%= Player.human_attribute_name("country") %></b><td><%= f.collection_select :country_id, Country.find(:all), :id, :name %>
 <tr>
+<td><b>Location</b><td align="left">
+<%= f.text_field :city_lat, :size => 10 %> <b>Latitude</b><br>
+<%= f.text_field :city_lon, :size => 10 %> <b>Longitude</b><br>
+<%= f.text_field :city_name, :size => 16 %> <b>Name</b>
+<tr>
 <td><b>Self Introduction</b><td><%= f.text_area :pr, :cols => 32, :rows => 8 %>
 <tr>
 <td><b><%= Player.human_attribute_name("email") %></b><td><%= h(@player.email) %></p>

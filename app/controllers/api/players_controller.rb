@@ -119,7 +119,7 @@ class Api::PlayersController < ApplicationController
       format.xml  { render :xml => @player.to_xml(:only => [
         :avatar_image_url, :country_id, :created_at, :draws34, :exp34, :login,
         :losses, :losses34, :max_rate, :name, :pr, :rate, :streak, :streak_best,
-        :updated_at, :wins, :wins34]) }
+        :updated_at, :wins, :wins34, :city_name, :city_lat, :city_lon]) }
     end
   end
   

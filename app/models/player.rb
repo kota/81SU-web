@@ -29,8 +29,8 @@ class Player < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :rate, :country, :wins, :losses, :streak, :streak_best, :max_rate, :exp34, :wins34, :losses34, :draws34, :latest_ip_address
-
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :rate, :country, :wins, :losses, :streak, :streak_best, :max_rate, :latest_ip_address
+  attr_accessible :exp34, :wins34, :losses34, :draws34, :city_lat, :city_lon, :city_name
 
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
