@@ -4,11 +4,11 @@
 <div class="container">
 <table width=100% border="1" cellspacing="0" cellpadding="5" align="center">
 <tr>
-<td><b>81Dojo <%= Player.human_attribute_name("login") %></b><td><%= @player.name %>
+<td><b>81Dojo <%= Player.human_attribute_name("login") %></b><td align="center"><%= @player.name %>
 <tr>
-<td><b><%= Player.human_attribute_name("country") %></b><td><%= @player.country ? @player.country.name : '' %>
+<td><b><%= Player.human_attribute_name("country") %></b><td align="center"><%= @player.country ? @player.country.name : '' %>
 <tr>
-<td><b><%= Player.human_attribute_name("rate") %></b><td><%= @player.rate %>
+<td><b><%= Player.human_attribute_name("rate") %></b><td align="center"><%= sprintf("%.2f",@player.rate) %>
 </table>
 </div>
 <div style="font-size:24px"><%= link_to 'Edit',edit_player_path(@player) %></div>

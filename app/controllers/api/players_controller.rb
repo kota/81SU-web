@@ -116,14 +116,23 @@ class Api::PlayersController < ApplicationController
     @player = Player.find(:all, :conditions => ['login = ?',params[:name]])
 
     respond_to do |format|
-      format.xml  { render :xml => @player }
+      format.xml  { render :xml => @player.to_xml(:only => [
+        :avatar_image_url, :country_id, :created_at, :draws34, :exp34, :login,
+        :losses, :losses34, :max_rate, :name, :pr, :rate, :streak, :streak_best,
+        :updated_at, :wins, :wins34]) }
     end
   end
   
   def ranking
-    conditions = 'players.updated_at >= ? and (players.wins + players.losses) >= ? and players.show_ranking = ?'
-    @api_players = Player.find(:all,
-                       :conditions => [conditions, DateTime.now - 90 , 30, true])
+    if (params[:country_id] == "*")
+      conditions = 'players.updated_at >= ? and (players.wins + players.losses) >= ? and players.show_ranking = ?'
+      @api_players = Player.find(:all,
+                         :conditions => [conditions, DateTime.now - 90 , 30, true])
+    else
+      conditions = 'players.updated_at >= ? and (players.wins + players.losses) >= ? and players.show_ranking = ? and players.country_id = ?'
+      @api_players = Player.find(:all,
+                         :conditions => [conditions, DateTime.now - 90 , 30, true, params[:country_id]])
+    end
     case params[:item]
     when "rate"
       @api_players = @api_players.sort_by { |v| - ( v.wins + v.losses ) }
@@ -153,9 +162,15 @@ class Api::PlayersController < ApplicationController
   end
 
   def ranking34
-    conditions = 'players.updated_at >= ? and players.exp34 >= ? and players.show_ranking = ?'
-    @api_players = Player.find(:all,
-                       :conditions => [conditions, DateTime.now - 90 , 20, true])
+    if (params[:country_id] == "*")
+      conditions = 'players.updated_at >= ? and players.exp34 >= ? and players.show_ranking = ?'
+      @api_players = Player.find(:all,
+                         :conditions => [conditions, DateTime.now - 90 , 20, true])
+    else
+      conditions = 'players.updated_at >= ? and players.exp34 >= ? and players.show_ranking = ? and players.country_id = ?'
+      @api_players = Player.find(:all,
+                         :conditions => [conditions, DateTime.now - 90 , 20, true, params[:country_id]])
+    end
     case params[:item]
     when "exp"
       @api_players = @api_players.sort_by { |v| - v.wins34 }

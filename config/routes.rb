@@ -8,8 +8,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.namespace :api do |api|
     api.connect '/players/search/:name', :controller => 'players', :action => 'search'
-    api.connect '/players/ranking/:item', :controller => 'players', :action => 'ranking'
-    api.connect '/players/ranking34/:item', :controller => 'players', :action => 'ranking34'
+    api.connect '/players/ranking/:country_id/:item', :controller => 'players', :action => 'ranking'
+    api.connect '/players/ranking34/:country_id/:item', :controller => 'players', :action => 'ranking34'
     api.connect '/players/detail/:name', :controller => 'players', :action => 'detail'
     api.connect '/kifus/search/:player_name/:opponent_name/:begin_date/:end_date', :controller => 'kifus', :action => 'search'
     api.connect '/rate_change_histories/search/:name', :controller => 'rate_change_histories', :action => 'search'
