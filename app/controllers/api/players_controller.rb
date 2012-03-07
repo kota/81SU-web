@@ -21,7 +21,7 @@ class Api::PlayersController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @player }
+      format.xml  { render :xml => @player.to_xml(:include => :titles) }
     end
   end
 
@@ -196,7 +196,7 @@ class Api::PlayersController < ApplicationController
   def authenticate
     logout_keeping_session!
     if @player = Player.authenticate(params[:login], params[:password])
-      render :xml => @player.to_xml(:include => :country), :layout => false
+      render :xml => @player.to_xml(:include => [:country,:titles]), :layout => false
     else
       render :nothing => true, :status => :unprocessable_entity
     end
